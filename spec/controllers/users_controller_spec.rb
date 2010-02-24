@@ -7,7 +7,6 @@ describe UsersController do
 
     before(:each) do
       @user = Factory(:user)
-      # Arrange for User.find(params[:id]) to find the right user.
       User.stub!(:find, @user.id).and_return(@user)
     end
 
