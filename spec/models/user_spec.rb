@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20100328220450
+# Schema version: 20100402140352
 #
 # Table name: users
 #
@@ -11,6 +11,7 @@
 #  encrypted_password :string(255)
 #  salt               :string(255)
 #  remember_token     :string(255)
+#  admin              :boolean
 #
 
 require 'spec_helper'
@@ -145,6 +146,10 @@ describe User do
 
   describe "remember me" do
 
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+
     it "should have a remember_me! method" do
       @user.should respond_to(:remember_me!)
     end
@@ -158,4 +163,25 @@ describe User do
       @user.remember_token.should_not be_nil
     end
   end
+
+  describe "admin atttribute" do
+
+    before(:each) do
+      @user = User.create!(@attr)
+    end
+
+    it "should respond to admin" do
+      @user.should respond_to(:admin)
+    end
+
+    it "should not be an admin by default" do
+      @user.should_not be_admin
+    end
+
+    it "should be convertible to an admin" do
+      @user.toggle!(:admin)
+      @user.should be_admin
+    end
+  end
+
 end
