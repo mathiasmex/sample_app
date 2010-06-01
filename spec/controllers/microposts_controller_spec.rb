@@ -83,7 +83,7 @@ describe MicropostsController do
         Micropost.should_receive(:find).with(@micropost).and_return(@micropost)
       end
 
-      it "should destroy the user" do
+      it "should destroy the micropost" do
         @micropost.should_receive(:destroy).and_return(@micropost)
         delete :destroy, :id => @micropost
       end
